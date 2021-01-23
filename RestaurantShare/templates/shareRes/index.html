@@ -224,13 +224,13 @@
                                 {% if restaurant.category == category %}
                                 <div class = "input-group">
                                     <span class ="input-group-addon">
-                                        <input name = "checks" id = "check{{restaurant.id}}" type = "checkbox">
+                                        <input name = "checks" id = "check{{restaurant.id}}" type = "checkbox" value = "{{restaurant.id}}">
                                     </span>
-                                    <a href = "restaurantDetail/{{restaurant.id}}"><input name ="res{{restaurant.id}}" id = "res{{restaurant.id}}" type = "text" class ="form-control" disabled style = "cursor:pointer;" value = "{{restaurant.restaurant_name}}"</a>    
+                                    <a href = "restaurantDetail/{{restaurant.id}}"><input name ="res{{restaurant.id}}" id = "res{{restaurant.id}}" type = "text" class ="form-control" disabled style = "cursor:pointer;" value = "{{restaurant.restaurant_name}}"></a>    
                                 </div>
                                 {% endif %}
                                 {% endfor %}
-                                </ul>
+                            </ul>
                             {% endfor %}
                         </ul>
                         <a href="restaurantCreate/" class="sendBtn btn btn-info" role="button">맛집 추가하기</a>

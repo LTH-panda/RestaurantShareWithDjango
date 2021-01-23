@@ -45,5 +45,38 @@ def create_restaurant(request):
     new_res.save()
     return HttpResponseRedirect(reverse('index'))
 
-def restaurantDetail(request):
-    return render(request, 'shareRes/restaurantDetail.html')
+def restaurantUpdate(request,res_id):
+    categories = Category.objects.all()
+    restaurant = Restaurant.objects.get(id = res_id)
+    content = {'categories' : categories,
+               'restaurant' : restaurant}
+    return render(request, 'shareRes/restaurantUpdate.html', content)
+
+def update_restaurant(request):
+    resId= request.POST['resId']
+    change_category_id = request.POST['resCategory']
+    change_category = Category.objects.get(id = change_category_id)
+    change_resName = request.POST['resTitle']
+    change_resLink = request.POST['resLink']
+    change_resContent = request.POST['resContent']
+    change_resKeyword = request.POST['resLoc']
+    
+    before_restaurant = Restaurant.objects.get(id = resId)
+    before_restaurant.categoty = change_category
+    before_restaurant.restaurant_name = change_resName
+    before_restaurant.restaurant_link = change_resLink
+    before_restaurant.restaurant_content = change_resContent
+    before_restaurant.restauant_keyword = change_resKeyword
+    before_restaurant.save()
+    return HttpResponseRedirect(reverse('restaurantDetail', kwargs={'res_id': resId}))
+
+def delete_restaurant(request):
+    res_id = request.POST['resId']
+    delete_res = Restaurant.objects.get(id = res_id)
+    delete_res.delete()
+    return HttpResponseRedirect(reverse('index'))
+
+def restaurantDetail(request, res_id):
+    restaurant = Restaurant.objects.get(id= res_id)
+    content = {'restaurant' : restaurant}
+    return render(request, 'shareRes/restaurantDetail.html',content)
